@@ -95,7 +95,8 @@ public class MainActivity extends AppCompatActivity {
          }
          else
          {
-             Snackbar.make(activity_main, "Welcome "+FirebaseAuth.getInstance().getCurrentUser().getEmail(), Snackbar.LENGTH_SHORT).show();
+             Snackbar.make(activity_main, "Welcome "+
+                     FirebaseAuth.getInstance().getCurrentUser().getEmail(), Snackbar.LENGTH_SHORT).show();
          }
 
          //Load content
