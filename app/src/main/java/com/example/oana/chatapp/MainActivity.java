@@ -21,8 +21,8 @@ import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-
 
 
 public class MainActivity extends AppCompatActivity {
@@ -78,13 +78,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         activity_main = (RelativeLayout)findViewById(R.id.activity_main);
-        fab = (FloatingActionButton)findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText input = (EditText) findViewById(R.id.fab);
-                FirebaseDatabase.getInstance().getReference().push().setValue((new ChatMessage(input.getText().toString(),
-                        FirebaseAuth.getInstance().getCurrentUser().getEmail())));
+                EditText input = (EditText) findViewById(R.id.input);
+                FirebaseDatabase.getInstance().getReference().push().setValue(new ChatMessage(input.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail()));
                 input.setText("");
             }
         });
@@ -95,17 +94,18 @@ public class MainActivity extends AppCompatActivity {
          }
          else
          {
-             Snackbar.make(activity_main, "Welcome "+
-                     FirebaseAuth.getInstance().getCurrentUser().getEmail(), Snackbar.LENGTH_SHORT).show();
+             Snackbar.make(activity_main, "Welcome "+FirebaseAuth.getInstance().getCurrentUser().getEmail(), Snackbar.LENGTH_SHORT).show();
+             //Load content
+             displayChatMessage();
+
+
          }
 
-         //Load content
-        displayChatMessage();
     }
 
     private void displayChatMessage() {
 
-        ListView ListOfMessage = (ListView) findViewById(R.id.list_of_message);
+        ListView listOfMessage = (ListView) findViewById(R.id.list_of_message);
         adapter = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class, R.layout.list_item, FirebaseDatabase.getInstance().getReference())
         {
             @Override
@@ -114,15 +114,15 @@ public class MainActivity extends AppCompatActivity {
                 //Get references to the views of list_item.xml
 
                 TextView messageText, messageUser, messageTime;
-                messageText = (TextView) findViewById(R.id.message_text);
-                messageUser = (TextView) findViewById(R.id.message_user);
-                messageTime = (TextView) findViewById(R.id.message_time);
+                messageText = (TextView) v.findViewById(R.id.message_text);
+                messageUser = (TextView) v.findViewById(R.id.message_user);
+                messageTime = (TextView) v.findViewById(R.id.message_time);
 
                 messageText.setText(model.getMessageText());
                 messageUser.setText(model.getMessageUser());
                 messageTime.setText(android.text.format.DateFormat.format("dd-MM-yyyy (HH:mm:ss)",model.getMessageTime()));
             }
         };
-        ListOfMessage.setAdapter(adapter);
+        listOfMessage.setAdapter(adapter);
     }
 }
