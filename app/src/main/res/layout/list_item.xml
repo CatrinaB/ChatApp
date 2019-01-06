@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+//layout pentru numele utilizatorului care a trimis mesajul
     <TextView
 
         android:layout_alignParentTop="true"
@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true" />
-
+//layout pentru ora la care a fost trimis mesajul
     <TextView
 
         android:layout_alignParentBottom="@+id/message_user"
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true" />
-
+//layout pentru continutul mesajului
     <TextView
 
         android:id="@+id/message_text"
